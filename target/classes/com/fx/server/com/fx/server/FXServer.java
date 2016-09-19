@@ -30,7 +30,7 @@ import javax.ws.rs.QueryParam;
 public class FXServer {
 	FileReader reader = new FileReader();
 
-	public String validateValueDateBeforeTradeDate(FXBase fx, String type) {
+	public String validateValueDateBeforeTradeDate(FXBase fx, String type) { //passed
 
 		String valueDateStr = "";
 		String tradeDateStr = "";
@@ -99,14 +99,14 @@ public class FXServer {
 		return resultStr;
 	}
 
-	public String validateCounterparty(FXBase fx) {
+	public String validateCounterparty(FXBase fx) { //passed
 		if (fx.getCustomer().replace("\"", "").equals("PLUTO1") || fx.getCustomer().replace("\"", "").equals("PLUTO2")) {
 			return "passed: counterparty is supported";
 		}
 		return "not passed: counterparty is not supported";
 	}
 
-	public String validateCurrency(FXBase fx) {
+	public String validateCurrency(FXBase fx) { //passed
 		Set<Currency> ccyList = Currency.getAvailableCurrencies();
 		Iterator<Currency> iterator = ccyList.iterator();
 
@@ -130,7 +130,7 @@ public class FXServer {
 		String expiryDateStr = "";
 
 		String resultStr = "";
-
+		
 		excerciseStartDateStr = ((FXOptionsAmerican)fx).getExcerciseStartDate().trim().replace("\"", "");
 		tradeDateStr = ((FXOptionsAmerican)fx).getTradeDate().trim().replace("\"", "");
 		expiryDateStr = ((FXOptionsAmerican)fx).getExpiryDate().trim().replace("\"", "");
@@ -155,7 +155,7 @@ public class FXServer {
 		return resultStr;
 	}
 
-	public String validateExpiryDate(FXBase fx, String style) {
+	public String validateExpiryDate(FXBase fx, String style) {//passed
 		String deliveryDateStr = "";
 		String premiumDateStr = "";
 		String expiryDateStr = "";
@@ -210,7 +210,7 @@ public class FXServer {
 				}
 
 				if (type.equals("options")) {
-					if (style.equals("AMERICAN")) {
+					if (style.equals("american")) {
 						validationResults += validateExcerciseDate(data.get(i)) + " for customer"+((FXOptions) data.get(i)).getCustomer()+" with type "+((FXOptions) data.get(i)).getCustomer()+" and style"+((FXOptions) data.get(i)).getStyle()+" for record # "+(i+1)+"\n\n";
 					}
 					validationResults += validateExpiryDate(data.get(i),style) + " for customer"+((FXOptions) data.get(i)).getCustomer()+" with type "+((FXOptions) data.get(i)).getCustomer()+" and style"+((FXOptions) data.get(i)).getStyle()+" for record # "+(i+1)+"\n\n";
