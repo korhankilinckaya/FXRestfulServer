@@ -114,12 +114,12 @@ public class FXServer {
 			Currency setElement = iterator.next();
 			
 			if (setElement.getCurrencyCode().equals(fx.getCcyPair().replace("\"", "").substring(0, 3))) {
-				return "currency check is passed";
+				return "passed: currency is valid";
 			}
 			if (setElement.getCurrencyCode().equals(fx.getCcyPair().replace("\"", "").substring(3, 6))) {
-				return "currency check is passed";
+				return "passed: currency is valid";
 			}
-
+			return "not passed: currency is not valid";
 		}
 
 		return "not passed: currency pairs are not valid";
@@ -202,19 +202,19 @@ public class FXServer {
 
 			for (int i = 0; i < data.size(); i++) {
 
-				validationResults += validateCounterparty(data.get(i)) + " for customer"+data.get(i).getCustomer()+" with type "+data.get(i).getType()+"\n";
+				validationResults += validateCounterparty(data.get(i)) + " for customer"+data.get(i).getCustomer()+" with type "+data.get(i).getType()+" for "+i+"\'st record\n\n";
 				validationResults += validateCurrency(data.get(i)) + " for customer"+data.get(i).getCustomer()+" with type "+data.get(i).getType()+"\n";
 
 				if (type.equals("spot") || type.equals("forward")) {
-					validationResults += validateValueDateBeforeTradeDate(data.get(i), type) + " for customer"+data.get(i).getCustomer()+" with type "+data.get(i).getType()+"\n";
-					validationResults += validateValueDateNonWorkingDay(data.get(i), type) + " for customer"+data.get(i).getCustomer()+" with type "+data.get(i).getType()+"\n";
+					validationResults += validateValueDateBeforeTradeDate(data.get(i), type) + " for customer"+data.get(i).getCustomer()+" with type "+data.get(i).getType()+" for "+i+"\'st record\n\n";
+					validationResults += validateValueDateNonWorkingDay(data.get(i), type) + " for customer"+data.get(i).getCustomer()+" with type "+data.get(i).getType()+" for "+i+"\'st record\n\n";
 				}
 
 				if (type.equals("options")) {
 					if (style.equals("AMERICAN")) {
-						validationResults += validateExcerciseDate(data.get(i)) + " for customer"+((FXOptions) data.get(i)).getCustomer()+" with type "+((FXOptions) data.get(i)).getCustomer()+" and style"+((FXOptions) data.get(i)).getStyle()+"\n";
+						validationResults += validateExcerciseDate(data.get(i)) + " for customer"+((FXOptions) data.get(i)).getCustomer()+" with type "+((FXOptions) data.get(i)).getCustomer()+" and style"+((FXOptions) data.get(i)).getStyle()+" for "+i+"\'st record\n\n";
 					}
-					validationResults += validateExpiryDate(data.get(i),style) + " for customer"+((FXOptions) data.get(i)).getCustomer()+" with type "+((FXOptions) data.get(i)).getCustomer()+" and style"+((FXOptions) data.get(i)).getStyle()+"\n";
+					validationResults += validateExpiryDate(data.get(i),style) + " for customer"+((FXOptions) data.get(i)).getCustomer()+" with type "+((FXOptions) data.get(i)).getCustomer()+" and style"+((FXOptions) data.get(i)).getStyle()+" for "+i+"\'st record\n\n";
 				}
 			}
 		} catch (IOException ex) {
